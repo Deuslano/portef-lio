@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Demonstração do sistema de gestão comercial L'Occitane.">
+  <title>Demo | Gestão Comercial</title>
+  <link rel="stylesheet" href="demo-loccitane.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="app-header">
+      <div>
+        <span class="demo-badge">MODO DEMONSTRAÇÃO</span>
+        <h1 id="page-title">Olá, Consultora!</h1>
+        <p>deuslanoj r</p>
+      </div>
+      <a class="back-link" href="index.html" aria-label="Voltar ao portfólio">← Portfólio</a>
+    </header>
+
+    <section class="balance-panel" aria-label="Resumo financeiro">
+      <span>Saldo em Caixa</span>
+      <strong id="balance">R$ -367,30</strong>
+      <small>Disponível para compras e retiradas</small>
+    </section>
+
+    <section class="view" data-view="dashboard">
+      <div class="metric-grid">
+        <article class="metric"><span>Vendas do mês</span><strong>R$ 0,00</strong><b class="positive">0 vendas</b></article>
+        <article class="metric"><span>Compras do mês</span><strong>R$ 0,00</strong><b class="negative">0 compras</b></article>
+        <article class="metric"><span>Lucro líquido</span><strong class="negative">R$ 0,00</strong><b class="positive">Este mês</b></article>
+        <article class="metric"><span>Produtos em estoque</span><strong>25</strong><b>16 itens</b></article>
+      </div>
+      <h2>Ações rápidas</h2>
+      <div class="quick-actions">
+        <button data-action="sale"><span>🛒</span>Nova venda</button>
+        <button data-action="purchase"><span>▣</span>Nova compra</button>
+        <button data-action="product"><span>＋</span>Novo produto</button>
+        <button data-action="bonus"><span>◇</span>Bonificação</button>
+      </div>
+    </section>
+
+    <section class="view hidden" data-view="products">
+      <div class="view-heading"><div><span class="eyebrow">CATÁLOGO</span><h2>Produtos</h2></div><button class="primary small" data-action="product">＋ Adicionar</button></div>
+      <label class="search"><span>⌕</span><input id="product-search" type="search" placeholder="Buscar por nome ou código..." aria-label="Buscar produtos"></label>
+      <div class="filter-row"><button class="filter active" data-filter="all">Todos</button><button class="filter" data-filter="low">Baixo estoque</button></div>
+      <div id="product-list" class="product-list"></div>
+    </section>
+
+    <section class="view hidden" data-view="clients">
+      <div class="view-heading"><div><span class="eyebrow">RELACIONAMENTO</span><h2>Clientes</h2></div><button class="primary icon-button" data-action="client">＋</button></div>
+      <label class="search"><span>⌕</span><input id="client-search" type="search" placeholder="Buscar cliente..." aria-label="Buscar clientes"></label>
+      <div id="client-list" class="client-list"></div>
+    </section>
+
+    <section class="view hidden" data-view="finance">
+      <div class="view-heading"><div><span class="eyebrow">CONTROLE</span><h2>Financeiro</h2></div></div>
+      <article class="finance-total"><span>Saldo atual (recebido)</span><strong>R$ -367,30</strong></article>
+      <div class="metric-grid compact"><article class="metric"><span>Entradas reais</span><strong class="positive">R$ 142,19</strong></article><article class="metric"><span>Saídas</span><strong class="negative">R$ 509,49</strong></article></div>
+      <div class="finance-list"><button class="filter active">Tudo</button><button class="filter">Vendas</button><button class="filter">Compras</button><button class="filter">Faturas</button></div>
+      <article class="transaction"><span class="transaction-icon positive">↑</span><div><strong>Venda - Cliente demonstração</strong><small>13/07/2026 · À vista</small></div><b class="positive">+ R$ 41,00</b></article>
+    </section>
+
+    <section class="view empty-view hidden" data-view="consortium"><div class="empty-icon">✿</div><h2>Consórcios</h2><p>Nenhum consórcio cadastrado.</p><button class="primary small" data-action="consortium">＋ Criar demonstração</button></section>
+    <section class="view empty-view hidden" data-view="draws"><div class="empty-icon">◇</div><h2>Sorteios</h2><p>Nenhum sorteio ativo.</p><button class="primary small" data-action="draw">＋ Criar demonstração</button></section>
+
+    <div class="demo-modal hidden" id="product-modal" role="dialog" aria-modal="true" aria-labelledby="product-modal-title">
+      <form class="modal-card" id="product-form">
+        <button class="modal-close" type="button" data-close-modal aria-label="Fechar">×</button>
+        <span class="eyebrow">MODO DEMONSTRAÇÃO</span>
+        <h2 id="product-modal-title">Novo produto</h2>
+        <label>Nome do produto<input name="name" required placeholder="Ex: Sabonete Líquido" /></label>
+        <div class="form-row"><label>Código SKU<input name="code" required placeholder="12345" /></label><label>Estoque<input name="stock" required type="number" min="0" placeholder="10" /></label></div>
+        <label>Preço de venda<input name="price" required placeholder="59,90" /></label>
+        <button class="primary" type="submit">Salvar na demonstração</button>
+      </form>
+    </div>
+
+    <nav class="bottom-nav" aria-label="Navegação da demonstração">
+      <button class="nav-item active" data-tab="dashboard"><span>⌂</span>Início</button>
+      <button class="nav-item" data-tab="products"><span>▦</span>Produtos</button>
+      <button class="nav-item" data-tab="clients"><span>♙</span>Clientes</button>
+      <button class="nav-item" data-tab="finance"><span>▣</span>Financeiro</button>
+      <button class="nav-item" data-tab="consortium"><span>✿</span>Consórcios</button>
+      <button class="nav-item" data-tab="draws"><span>◇</span>Sorteios</button>
+    </nav>
+  </main>
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script src="demo-loccitane.js"></script>
+</body>
+</html>
