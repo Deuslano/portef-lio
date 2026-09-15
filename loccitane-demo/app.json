@@ -22,6 +22,9 @@
       "output": "single",
       "favicon": "./assets/images/favicon.png"
     },
+    "experiments": {
+      "baseUrl": "/portef-lio/loccitane-demo"
+    },
     "plugins": [
       [
         "expo-splash-screen",
