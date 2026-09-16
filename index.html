@@ -192,6 +192,18 @@
     <span>© 2026</span>
   </footer>
   <script>
+    const FALLBACK_IMAGE = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="500" height="800" viewBox="0 0 500 800">
+        <rect width="500" height="800" fill="#d8d4cc"/>
+        <rect x="50" y="70" width="400" height="660" rx="32" fill="#f2f0ec" stroke="#111318" stroke-width="8"/>
+        <rect x="120" y="130" width="260" height="180" rx="18" fill="#e9a28d" opacity="0.6"/>
+        <rect x="110" y="355" width="280" height="24" rx="8" fill="#c9c3bb"/>
+        <rect x="110" y="405" width="280" height="24" rx="8" fill="#d9d3cc"/>
+        <rect x="110" y="455" width="280" height="24" rx="8" fill="#d9d3cc"/>
+        <rect x="110" y="520" width="150" height="42" rx="12" fill="#111318" opacity="0.15"/>
+      </svg>
+    `);
+
     const projects = [
       {
         label: 'GESTÃO COMERCIAL',
@@ -220,11 +232,7 @@
         tags: ['Agro', 'Controle', 'Operação'],
         href: 'colhefort2/colhefort2/colhefort/colhefort/',
         buttonText: 'Abrir demo',
-        images: [
-          { src: 'assets/WhatsApp Image 2026-09-14 at 20.41.04.jpeg', alt: 'Tela inicial do Colhefort 2' },
-          { src: 'assets/WhatsApp Image 2026-09-14 at 20.41.05.jpeg', alt: 'Dashboard do Colhefort 2' },
-          { src: 'assets/WhatsApp Image 2026-09-14 at 20.41.07.jpeg', alt: 'Painel de produtividade do Colhefort 2' }
-        ]
+        images: []
       }
     ];
 
@@ -241,7 +249,14 @@
     let currentImageIndex = 0;
 
     function renderTags(tags) {
-      projectTags.innerHTML = tags.map((tag) => `<span>${tag}</span>`).join('');
+      projectTags.innerHTML = (tags || []).map((tag) => `<span>${tag}</span>`).join('');
+    }
+
+    function getSafeImages(images) {
+      if (!Array.isArray(images) || images.length === 0) {
+        return [{ src: FALLBACK_IMAGE, alt: 'Projeto em desenvolvimento' }];
+      }
+      return images.filter((image) => !!image && !!image.src);
     }
 
     function renderProject(projectIndexValue) {
@@ -256,7 +271,7 @@
       projectButton.href = project.href;
       projectButton.innerHTML = `${project.buttonText} <span>→</span>`;
       renderTags(project.tags);
-      renderProjectImages(project.images);
+      renderProjectImages(getSafeImages(project.images));
     }
 
     function renderProjectImages(images) {
@@ -276,11 +291,12 @@
 
     function showProjectImage(index) {
       const project = projects[currentProjectIndex];
-      currentImageIndex = (index + project.images.length) % project.images.length;
-      const image = project.images[currentImageIndex];
+      const safeImages = getSafeImages(project.images);
+      currentImageIndex = (index + safeImages.length) % safeImages.length;
+      const image = safeImages[currentImageIndex];
 
       projectCoverImage.src = image.src;
-      projectCoverImage.alt = image.alt;
+      projectCoverImage.alt = image.alt || 'Imagem do projeto';
 
       document.querySelectorAll('.project-dot').forEach((dot, dotIndex) => {
         dot.classList.toggle('active', dotIndex === currentImageIndex);
