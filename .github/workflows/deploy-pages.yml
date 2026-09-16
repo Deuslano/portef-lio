@@ -40,9 +40,11 @@ jobs:
         shell: bash
         run: |
           mkdir -p _site/loccitane-demo
+          mkdir -p _site/colhefort2
           cp index.html style.css _site/
           cp -R assets _site/assets
           cp -R loccitane-demo/dist/. _site/loccitane-demo/
+          cp -R colhefort2/. _site/colhefort2/
           touch _site/.nojekyll
 
       - name: Upload Pages artifact
