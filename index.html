@@ -134,18 +134,17 @@
         <div class="project-cover">
           <img src="assets/WhatsApp Image 2026-09-14 at 20.41.04.jpeg" alt="Tela de login do sistema de gestão comercial">
           <span class="project-cover-label">GESTÃO COMERCIAL</span>
-          <button class="project-arrow project-arrow-prev" type="button" aria-label="Imagem anterior">←</button>
-          <button class="project-arrow project-arrow-next" type="button" aria-label="Próxima imagem">→</button>
+          <button class="project-arrow project-arrow-prev" type="button" aria-label="Projeto anterior">←</button>
+          <button class="project-arrow project-arrow-next" type="button" aria-label="Próximo projeto">→</button>
           <div class="project-dots" aria-label="Indicador de imagem"></div>
         </div>
         <div class="project-info">
-          <span class="project-index">PROJETO 01 / 01</span>
-          <h3>Sistema de Gestão Comercial</h3>
-          <p>Uma solução mobile criada para centralizar o controle do negócio: estoque, produtos, clientes, vendas, compras, financeiro, consórcios e sorteios.</p>
+          <span class="project-index">PROJETO 01 / 02</span>
+          <h3 class="project-title">Sistema de Gestão Comercial</h3>
+          <p class="project-description">Uma solução mobile criada para centralizar o controle do negócio: estoque, produtos, clientes, vendas, compras, financeiro, consórcios e sorteios.</p>
           <div class="project-tags"><span>Mobile</span><span>Dashboard</span><span>Gestão</span></div>
           <div class="project-actions">
-            <a class="button primary" href="loccitane-demo/" target="_blank" rel="noopener">Quero testar <span>→</span></a>
-            <a class="button ghost" href="colhefort2/colhefort2/colhefort/colhefort/" target="_blank" rel="noopener">Colhefort 2 <span>→</span></a>
+            <a class="button primary project-button" href="loccitane-demo/" target="_blank" rel="noopener">Quero testar <span>→</span></a>
           </div>
         </div>
       </article>
@@ -193,39 +192,112 @@
     <span>© 2026</span>
   </footer>
   <script>
-    const projectCoverImage = document.querySelector('.project-cover img');
-    const projectImages = [
-      { src: 'assets/WhatsApp Image 2026-09-14 at 20.41.04.jpeg', alt: 'Tela de login do sistema de gestão comercial' },
-      { src: 'assets/WhatsApp Image 2026-09-14 at 20.41.05.jpeg', alt: 'Dashboard do sistema de gestão comercial' },
-      { src: 'assets/WhatsApp Image 2026-09-14 at 20.41.05 (2).jpeg', alt: 'Tela de produtos do sistema' },
-      { src: 'assets/WhatsApp Image 2026-09-14 at 20.41.06 (1).jpeg', alt: 'Tela de clientes do sistema' },
-      { src: 'assets/WhatsApp Image 2026-09-14 at 20.41.07.jpeg', alt: 'Tela de consórcios do sistema' },
-      { src: 'assets/WhatsApp Image 2026-09-14 at 20.41.07 (1).jpeg', alt: 'Tela de cadastro de produto do sistema' }
+    const projects = [
+      {
+        label: 'GESTÃO COMERCIAL',
+        index: '01',
+        total: '02',
+        title: 'Sistema de Gestão Comercial',
+        description: 'Uma solução mobile criada para centralizar o controle do negócio: estoque, produtos, clientes, vendas, compras, financeiro, consórcios e sorteios.',
+        tags: ['Mobile', 'Dashboard', 'Gestão'],
+        href: 'loccitane-demo/',
+        buttonText: 'Quero testar',
+        images: [
+          { src: 'assets/WhatsApp Image 2026-09-14 at 20.41.04.jpeg', alt: 'Tela de login do sistema de gestão comercial' },
+          { src: 'assets/WhatsApp Image 2026-09-14 at 20.41.05.jpeg', alt: 'Dashboard do sistema de gestão comercial' },
+          { src: 'assets/WhatsApp Image 2026-09-14 at 20.41.05 (2).jpeg', alt: 'Tela de produtos do sistema' },
+          { src: 'assets/WhatsApp Image 2026-09-14 at 20.41.06 (1).jpeg', alt: 'Tela de clientes do sistema' },
+          { src: 'assets/WhatsApp Image 2026-09-14 at 20.41.07.jpeg', alt: 'Tela de consórcios do sistema' },
+          { src: 'assets/WhatsApp Image 2026-09-14 at 20.41.07 (1).jpeg', alt: 'Tela de cadastro de produto do sistema' }
+        ]
+      },
+      {
+        label: 'COLHEFORT 2',
+        index: '02',
+        total: '02',
+        title: 'Colhefort 2',
+        description: 'Plataforma focada em gestão agrícola, controle de produção, usuários e acompanhamento financeiro para operações do campo.',
+        tags: ['Agro', 'Controle', 'Operação'],
+        href: 'colhefort2/colhefort2/colhefort/colhefort/',
+        buttonText: 'Abrir demo',
+        images: [
+          { src: 'assets/WhatsApp Image 2026-09-14 at 20.41.04.jpeg', alt: 'Tela inicial do Colhefort 2' },
+          { src: 'assets/WhatsApp Image 2026-09-14 at 20.41.05.jpeg', alt: 'Dashboard do Colhefort 2' },
+          { src: 'assets/WhatsApp Image 2026-09-14 at 20.41.07.jpeg', alt: 'Painel de produtividade do Colhefort 2' }
+        ]
+      }
     ];
-    let projectImageIndex = 0;
+
+    const projectCoverImage = document.querySelector('.project-cover img');
+    const projectCoverLabel = document.querySelector('.project-cover-label');
+    const projectIndex = document.querySelector('.project-index');
+    const projectTitle = document.querySelector('.project-title');
+    const projectDescription = document.querySelector('.project-description');
+    const projectTags = document.querySelector('.project-tags');
+    const projectButton = document.querySelector('.project-button');
     const dots = document.querySelector('.project-dots');
 
-    projectImages.forEach((_, index) => {
-      const dot = document.createElement('button');
-      dot.type = 'button';
-      dot.className = 'project-dot';
-      dot.setAttribute('aria-label', `Ver imagem ${index + 1}`);
-      dot.addEventListener('click', () => showProjectImage(index));
-      dots.appendChild(dot);
-    });
+    let currentProjectIndex = 0;
+    let currentImageIndex = 0;
+
+    function renderTags(tags) {
+      projectTags.innerHTML = tags.map((tag) => `<span>${tag}</span>`).join('');
+    }
+
+    function renderProject(projectIndexValue) {
+      const project = projects[projectIndexValue];
+      currentProjectIndex = projectIndexValue;
+      currentImageIndex = 0;
+
+      projectIndex.textContent = `PROJETO ${project.index} / ${project.total}`;
+      projectTitle.textContent = project.title;
+      projectDescription.textContent = project.description;
+      projectCoverLabel.textContent = project.label;
+      projectButton.href = project.href;
+      projectButton.innerHTML = `${project.buttonText} <span>→</span>`;
+      renderTags(project.tags);
+      renderProjectImages(project.images);
+    }
+
+    function renderProjectImages(images) {
+      dots.innerHTML = '';
+
+      images.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'project-dot';
+        dot.setAttribute('aria-label', `Ver imagem ${index + 1}`);
+        dot.addEventListener('click', () => showProjectImage(index));
+        dots.appendChild(dot);
+      });
+
+      showProjectImage(0);
+    }
 
     function showProjectImage(index) {
-      projectImageIndex = (index + projectImages.length) % projectImages.length;
-      projectCoverImage.src = projectImages[projectImageIndex].src;
-      projectCoverImage.alt = projectImages[projectImageIndex].alt;
+      const project = projects[currentProjectIndex];
+      currentImageIndex = (index + project.images.length) % project.images.length;
+      const image = project.images[currentImageIndex];
+
+      projectCoverImage.src = image.src;
+      projectCoverImage.alt = image.alt;
+
       document.querySelectorAll('.project-dot').forEach((dot, dotIndex) => {
-        dot.classList.toggle('active', dotIndex === projectImageIndex);
+        dot.classList.toggle('active', dotIndex === currentImageIndex);
       });
     }
 
-    document.querySelector('.project-arrow-prev').addEventListener('click', () => showProjectImage(projectImageIndex - 1));
-    document.querySelector('.project-arrow-next').addEventListener('click', () => showProjectImage(projectImageIndex + 1));
-    showProjectImage(0);
+    document.querySelector('.project-arrow-prev').addEventListener('click', () => {
+      const nextIndex = (currentProjectIndex - 1 + projects.length) % projects.length;
+      renderProject(nextIndex);
+    });
+
+    document.querySelector('.project-arrow-next').addEventListener('click', () => {
+      const nextIndex = (currentProjectIndex + 1) % projects.length;
+      renderProject(nextIndex);
+    });
+
+    renderProject(0);
   </script>
 </body>
 </html>
