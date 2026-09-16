@@ -161,7 +161,8 @@ footer{max-width:var(--max);margin:auto;padding:30px 28px 45px;border-top:1px so
   h1{font-size:48px;letter-spacing:-2.5px}.hero-text{font-size:15px}
   .quick-info{gap:15px}.quick-info span{font-size:10px}
   .services{padding:70px 18px}.service-grid{grid-template-columns:1fr}
-  .service-card{min-height:235px}.about{padding:75px 18px}.about-photo{height:380px}
+  .service-card{min-height:auto;padding:16px 16px 14px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;column-gap:12px;row-gap:8px}.service-card .icon{width:36px;height:36px;font-size:12px}.service-card .number{position:static;grid-column:3;justify-self:end;font-size:10px}.service-card h3{grid-column:2;grid-row:1;margin-top:0;font-size:17px;line-height:1.2}.service-card p{grid-column:1/-1;margin-top:0;font-size:12px;line-height:1.55;max-width:none}.service-card a{position:static;grid-column:1/-1;display:inline-flex;align-self:start;margin-top:2px;font-size:11px}
+  .about{padding:75px 18px}.about-photo{height:380px}
   .contact{margin:0 18px 70px}.contact-button{display:block}.contact-button b{display:block;margin-top:5px}
   footer{padding:25px 18px;flex-wrap:wrap;gap:15px}
 }
